@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Update Task</h2>
+
+<form id="updateTaskForm">
+    <input type="hidden" name="id" value="{{ task.0 }}">
+
+    <div class="mb-3">
+        <label>Title</label>
+        <input type="text" name="title" value="{{ task.1 }}" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+        <label>Description</label>
+        <textarea name="description" class="form-control">{{ task.2 }}</textarea>
+    </div>
+
+    <div class="mb-3">
+        <label>Due Date</label>
+        <input type="date" name="due_date" value="{{ task.3 }}" class="form-control">
+    </div>
+
+    <div class="mb-3">
+        <label>Status</label>
+        <select name="status" class="form-control">
+            <option {% if task.4 == "Pending" %}selected{% endif %}>Pending</option>
+            <option {% if task.4 == "In Progress" %}selected{% endif %}>In Progress</option>
+            <option {% if task.4 == "Completed" %}selected{% endif %}>Completed</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-warning">Update</button>
+</form>
+
+<script>
+document.getElementById('updateTaskForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const formData = new FormData(this);
+    const taskId = formData.get("id");
+
+    const data = {
+        title: formData.get("title"),
+        description: formData.get("description"),
+        due_date: formData.get("due_date"),
+        status: formData.get("status")
+    };
+
+    await fetch(`/api/tasks/${taskId}/update/`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    });
+
+    window.location.href = '/';
+});
+</script>
+
+{% endblock %}

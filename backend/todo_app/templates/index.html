@@ -19,8 +19,8 @@
             <td>{{ task.3 }}</td>
             <td>{{ task.4 }}</td>
             <td>
-                <a href="/api/tasks/{{ task.0 }}/update/" class="btn btn-sm btn-warning">Edit</a>
-                <a href="/api/tasks/{{ task.0 }}/delete/" class="btn btn-sm btn-danger">Delete</a>
+                <a href="/update/{{ task.0 }}/" class="btn btn-sm btn-warning">Edit</a>
+                <a href="/delete/{{ task.0 }}/" class="btn btn-sm btn-danger">Delete</a>
             </td>
         </tr>
     {% empty %}

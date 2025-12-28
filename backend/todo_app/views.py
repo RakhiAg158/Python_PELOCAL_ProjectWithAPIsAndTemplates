@@ -59,3 +59,11 @@ def api_delete_task(request, task_id):
     except Exception as e:
         logger.error(f"Error deleting task: {e}")
         return JsonResponse({"error": "Invalid request"}, status=400)
+
+def update_task_page(request, task_id):
+    task = fetch_task_by_id(task_id)
+    return render(request, 'update_task.html', {"task": task})
+
+def delete_task_redirect(request, task_id):
+    delete_task(task_id)
+    return HttpResponseRedirect('/')
